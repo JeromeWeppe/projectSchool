@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <%- include('../parts/head'); %>
+</head>
+<body>
+    <header id="header">
+        <%- include('../parts/header'); %>
+    </header>
+
+    <main>
+        <div id="container">
+            <form action="/user/register" method="post">
+
+                <input type="text" name="name" placeholder="name" />
+                <input type="text" name="email" placeholder="email" />
+                <input type="password" name="psw" placeholder="password" />
+                <input type="submit" name="register" value="register"/>
+
+            </form>
+            <form action="/user/login" method="post">
+
+                <input type="text" name="name" placeholder="name" />                
+                <input type="password" name="psw" placeholder="password" />
+                <input type="submit" name="login" value="login"/>
+
+            </form>
+        </div>
+    </main>
+
+    <footer id="footer">
+        <%- include('../parts/footer'); %>
+    </footer>
+</body>
+</html>
