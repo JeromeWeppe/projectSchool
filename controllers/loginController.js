@@ -3,15 +3,21 @@ let loginRouter = express.Router();
 const mongoose = require('mongoose');
 const bcrypt = require ('bcrypt');
 const LoginModels = require('../models/loginModels');
+// const session = require('express-session');
+
 
 const User = LoginModels;
-const saltRounds = 10;
-let hashPsw = "";
+
 
 exports.getLoginPage = (req, res, next) =>{
     res.render('pages/login');
 };
 
+exports.getLogout = (req, res) =>{
+    req.session.destroy();
+    console.log("session destroyed" + req.session);
+    res.redirect('/');
+}
 exports.postRegisterPage = (req, res, next) =>{
     console.log("dans le register");
     console.log(req.body.register);
@@ -23,9 +29,9 @@ exports.postRegisterPage = (req, res, next) =>{
     });
     newUser.save();
     session=req.session;
-    
-    // res.render('pages/index');
-    res.status(200).send('You have been registered successfully.' + session.cookie);
+    session.userid = req.body.name;
+    console.log(req.session);
+    res.status(200).send('You have been registered successfully. <a href='/'>click to get back home</a>');
 }
 
 exports.checkLogin = (req, res, next) =>{
@@ -34,14 +40,14 @@ exports.checkLogin = (req, res, next) =>{
     User.findOne({name : req.body.name},(err, user)=>{
         if(user != null){
             if(bcrypt.compareSync(req.body.psw, user.psw)){
-                res.send("Successfully logged :)");
+                session = req.session;
+                session.userid = req.body.name;
+                console.log(req.session);
+                res.send("Successfully logged :) <a href='/'>click to get back home</a> ");
             }else{
                 res.send("Wrong credentials.");
-            }
-                
-            
+            }            
         }
     });
-    res.send();
 }
 

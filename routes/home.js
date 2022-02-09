@@ -1,10 +1,19 @@
 const express = require('express');
+// const session = require('express-session');
 var router = express.Router();
 const mongoose = require('mongoose');
 
 router.get('/', (req, res, next) => {
+    // res.render('pages/index', {
+    //     session: session
+    // });
+    session=req.session;
+    if(session.userid){
+        res.send("Welcome User <a href='/user/logout'>click to logout</a>");
+    }else
     res.render('pages/index');
 });
+
 
 // router.get('/login', (req, res, next) => {
 //     res.render('pages/login');

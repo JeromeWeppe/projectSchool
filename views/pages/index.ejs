@@ -10,6 +10,9 @@
 
     <main>
         <div id="container">
+            <% if(session.userid){ %>
+                <p><%= session.userid %></p>
+            <% } %>
             <p>Welcome to Zalem</p>
         </div>
     </main>

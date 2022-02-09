@@ -15,15 +15,18 @@ mongoose.connect(DB_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
-app.use(cookieParser());
+// app.use(cookieParser());
 let session;
 const oneDay = 1000 * 60 * 60 * 24;
 
 //session middleware
 app.use(sessions({
     secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
-    saveUninitialized:true,
-    cookie: { maxAge: oneDay },
+    saveUninitialized:false,
+    cookie: { 
+        maxAge: oneDay,
+        sameSite: 'strict'
+    },
     resave: false
 }));
 
