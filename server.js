@@ -9,7 +9,9 @@ const homeRouter = require('./routes/home');
 const cartRouter = require('./routes/cart');
 const userRouter = require('./routes/user');
 const fetch = require('node-fetch');
+
 const DB_URL = process.env.APP_URL;
+const sessionSecret = process.env.SECRET;
 
 mongoose.connect(DB_URL, {
     useNewUrlParser: true,
@@ -21,7 +23,7 @@ const oneDay = 1000 * 60 * 60 * 24;
 
 //session middleware
 app.use(sessions({
-    secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
+    secret: sessionSecret,
     saveUninitialized:false,
     cookie: { 
         maxAge: oneDay,
