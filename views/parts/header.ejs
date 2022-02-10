@@ -1,7 +1,11 @@
 <nav>
     <button><a href="/">home</a></button>
     <button><a href="/cart">cart</a></button>
-    <button><a href="/user">login/register</a></button>
-    <% %>
+    <% if(!sessionid){ %>
+        <button><a href="/user">login/register</a></button>
+    <% } %>
+    
+    <% if(sessionid){ %>
     <button><a href="/user/logout">logout</a></button>
+    <% } %>
 </nav>

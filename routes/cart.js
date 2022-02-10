@@ -3,7 +3,9 @@ let cartRouter = express.Router();
 // const mongoose = require('mongoose');
 
 cartRouter.get('/', (req, res, next) => {
-    res.render('pages/cart');
+    res.render('pages/cart',{
+        sessionid: session.userid
+    });
 })
 
 //require controler/cart.js

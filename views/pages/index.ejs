@@ -5,16 +5,31 @@
 </head>
 <body>
     <header id="header">
-        <%- include('../parts/header'); %>
+        <%- include('../parts/header',{sessionid: sessionid}); %>
     </header>
 
     <main>
         <div id="container">
-            <% if(sessionid){ %>
-                <p><%= sessionid %></p>
-            <% } %>
-            <p>Welcome to Zalem</p>
             
+            <h1>Welcome to Zalem</h1>
+            <div class="productDiv">
+                <h2>Implant occulaire</h2>
+                <img src="" alt="Image implant occulaire">
+                <p class="description">Grâce à notre implant oculaire de dernière technologie plus rien n'aura de secret pour vous, alors essayez le !</p>
+                <p class="prix">2000 e</p>
+            </div>
+            <div class="productDiv">
+                <h2>Bras cybernétique</h2>
+                <img src="" alt="Image bras cyber">
+                <p class="description">Bras classique ou avec option d'armement. Permet de porter de lourdes charges</p>
+                <p class="prix">3800 e</p>
+            </div>
+            <div class="productDiv">
+                <h2>Jambe cybernétique</h2>
+                <img src="" alt="Image jambe cybernétique">
+                <p class="description">Jambe classique ou avec option. Permet une meilleure endurance</p>
+                <p class="prix">4500 e</p>
+            </div>
         </div>
     </main>
 

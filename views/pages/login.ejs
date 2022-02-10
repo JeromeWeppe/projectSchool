@@ -10,21 +10,29 @@
 
     <main>
         <div id="container">
-            <form action="/user/register" method="post">
+            
+            <div class="formDiv">
+                <h2>connectez vous</h2>
+                <form action="/user/login" method="post">
 
-                <input type="text" name="name" placeholder="name" />
-                <input type="text" name="email" placeholder="email" />
-                <input type="password" name="psw" placeholder="password" />
-                <input type="submit" name="register" value="register"/>
+                    <input type="text" name="name" placeholder="name" />                
+                    <input type="password" name="psw" placeholder="password" />
+                    <input type="submit" name="login" value="login"/>
 
-            </form>
-            <form action="/user/login" method="post">
+                </form>
+            </div>
 
-                <input type="text" name="name" placeholder="name" />                
-                <input type="password" name="psw" placeholder="password" />
-                <input type="submit" name="login" value="login"/>
+            <div class="formDiv">
+                <h2>Inscrivez vous</h2>
+                <form action="/user/register" method="post">
 
-            </form>
+                    <input type="text" name="name" placeholder="name" />
+                    <input type="text" name="email" placeholder="email" />
+                    <input type="password" name="psw" placeholder="password" />
+                    <input type="submit" name="register" value="register"/>
+
+                </form>
+            </div>
         </div>
     </main>
 

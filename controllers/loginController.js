@@ -4,14 +4,14 @@ const mongoose = require('mongoose');
 const bcrypt = require ('bcrypt');
 const LoginModels = require('../models/loginModels');
 const emailvalidator = require("email-validator");
-// const session = require('express-session');
-
 
 const User = LoginModels;
 const regex = new RegExp('([a-zA-Z]*<+[a-zA-Z]*>*[a-zA-Z]*\/*)');
 
 exports.getLoginPage = (req, res, next) =>{
-    res.render('pages/login');
+    res.render('pages/login',{
+        sessionid: session.userid
+    });
 };
 
 exports.getLogout = (req, res) =>{
@@ -43,8 +43,6 @@ exports.postRegisterPage = (req, res, next) =>{
     }else{
         res.status(400).send('Invalid Email');
     }
-    
-
     
 }
 
