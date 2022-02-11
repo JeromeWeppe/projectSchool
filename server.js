@@ -3,7 +3,6 @@ const express = require('express');
 const app = express();
 require('dotenv').config();
 const mongoose = require('mongoose');
-const cookieParser = require("cookie-parser");
 const sessions = require('express-session');
 const homeRouter = require('./routes/home');
 const cartRouter = require('./routes/cart');
@@ -17,8 +16,7 @@ mongoose.connect(DB_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
-// app.use(cookieParser());
-let session;
+
 const oneDay = 1000 * 60 * 60 * 24;
 
 //session middleware

@@ -6,8 +6,8 @@ const LoginModels = require('../models/loginModels');
 const emailvalidator = require("email-validator");
 
 const User = LoginModels;
-const regex = new RegExp('([a-zA-Z]*<+[a-zA-Z]*>*[a-zA-Z]*\/*)');
-
+const regex = new RegExp('^[a-zA-Z]+[0-9]*$');
+let session;
 exports.getLoginPage = (req, res, next) =>{
     res.render('pages/login',{
         sessionid: session.userid
@@ -22,7 +22,7 @@ exports.getLogout = (req, res) =>{
 exports.postRegisterPage = (req, res, next) =>{    
 
     if(emailvalidator.validate(req.body.email)){
-        if(!regex.test(req.body.name)){
+        if(regex.test(req.body.name)){
 
             let newUser = new User({
                 _id: new mongoose.Types.ObjectId().toHexString(),
@@ -58,7 +58,7 @@ exports.checkLogin = (req, res, next) =>{
                     res.send("Successfully logged :) <a href='/'>click to get back home</a> ");
                 }else{
                     res.status(400).send("Invalid credentials.");
-                }            
+                }
             }else{
                 res.send("User not found.")
             }
