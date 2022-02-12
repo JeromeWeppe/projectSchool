@@ -1,14 +1,14 @@
-const express = require('express');
+const express = require("express");
 let loginRouter = express.Router();
 
-const loginController = require('../controllers/loginController');
+const loginController = require("../controllers/loginController");
 
-loginRouter.get('/', loginController.getLoginPage);
+loginRouter.get("/", loginController.getLoginPage);
 
-loginRouter.post('/register',loginController.postRegisterPage);
+loginRouter.post("/register",loginController.postRegisterPage);
 
-loginRouter.post('/login',loginController.checkLogin);
+loginRouter.post("/login",loginController.checkLogin);
 
-loginRouter.get('/logout', loginController.getLogout);
+loginRouter.get("/logout", loginController.getLogout);
 
 module.exports = loginRouter;

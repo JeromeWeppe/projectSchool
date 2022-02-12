@@ -5,12 +5,14 @@
 </head>
 <body>
     <header id="header">
-        <%- include('../parts/header',{sessionid: sessionid}); %>
+        <%- include('../parts/header',{isLoggedIn: locals.isLoggedIn}); %>
     </header>
 
     <main>
         <div id="container">
-            
+            <% if(locals.message) { %>
+                <p><%= locals.message %></p>
+            <% } %>
             <h1>Welcome to Zalem</h1>
             <div class="productDiv">
                 <h2>Implant occulaire</h2>

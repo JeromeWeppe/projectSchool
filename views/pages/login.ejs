@@ -10,8 +10,11 @@
 
     <main>
         <div id="container">
-            
+            <% if(locals.loginError) { %>
+                <p><%= locals.loginError %></p>
+                <% } %>
             <div class="formDiv">
+                
                 <h2>connectez vous</h2>
                 <form action="/user/login" method="post">
 
@@ -23,6 +26,7 @@
             </div>
 
             <div class="formDiv">
+                
                 <h2>Inscrivez vous</h2>
                 <form action="/user/register" method="post">
 

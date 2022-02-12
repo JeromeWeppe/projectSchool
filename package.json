@@ -4,7 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon -e \"js,ejs,json\" ./server.js"
   },
   "keywords": [],
   "author": "",
@@ -19,5 +20,9 @@
     "express-session": "^1.17.2",
     "mongoose": "^6.1.8",
     "node-fetch": "^2.6.7"
+  },
+  "devDependencies": {
+    "eslint": "^8.9.0",
+    "nodemon": "^2.0.15"
   }
 }

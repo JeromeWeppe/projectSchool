@@ -1,13 +1,13 @@
 //see jwt token
-const express = require('express');
+const express = require("express");
 const app = express();
-require('dotenv').config();
-const mongoose = require('mongoose');
-const sessions = require('express-session');
-const homeRouter = require('./routes/home');
-const cartRouter = require('./routes/cart');
-const userRouter = require('./routes/user');
-const fetch = require('node-fetch');
+require("dotenv").config();
+const mongoose = require("mongoose");
+const sessions = require("express-session");
+const homeRouter = require("./routes/home");
+const cartRouter = require("./routes/cart");
+const userRouter = require("./routes/user");
+// const fetch = require("node-fetch");
 
 const DB_URL = process.env.APP_URL;
 const sessionSecret = process.env.SECRET;
@@ -25,28 +25,37 @@ app.use(sessions({
     saveUninitialized:false,
     cookie: { 
         maxAge: oneDay,
-        sameSite: 'strict'
+        sameSite: "strict"
     },
     resave: false
 }));
 
-const hostname = '127.0.0.1';
+app.use((req, res, next)=>{
+    let session = req.session;
+    req.isLoggedIn = (session && session.userid) != undefined;
+    next();
+});
+
+const hostname = "127.0.0.1";
 const port = 3000;
 
-app.set('view engine', 'ejs');
+app.set("view engine", "ejs");
 
 app.use(express.static(__dirname));
 
 app.use(express.json());
 app.use(express.urlencoded());
 
-app.use('/', homeRouter);
-app.use('/cart', cartRouter);
-app.use('/user', userRouter);
-app.get('/*', (req,res)=>{
-    res.send("error 404 : page not found");
+app.use("/", homeRouter);
+app.use("/cart", cartRouter);
+app.use("/user", userRouter);
+app.get("/*", (req,res)=>{
+    res.status(404).render("pages/error",{
+        error: "Error 404 : ressource not found.",
+        isLoggedIn: req.isLoggedIn
+    });
 });
-
+// app.use("/api/put/cartItem")
 app.listen(port, hostname, () => {
     console.log(`Server running at http://${hostname}:${port}/`);
 });
