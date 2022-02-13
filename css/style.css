@@ -37,6 +37,7 @@ img {
 main{
   margin: auto;  
   line-height: 1.8;
+  
 }
 
 .clear {
@@ -69,10 +70,11 @@ header nav{
     margin:1rem 2rem 1rem 2rem;
     padding-bottom: 2rem;
 }
-#footer{
-    /* margin-bottom: 0rem; */
+footer{
+    position: absolute bottom;
+    width: 100%;
     color: #bebebf;
-    justify-content: flex-end;
+    /* justify-content: flex-end; */
     height: 10%;
 }
 

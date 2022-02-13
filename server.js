@@ -4,6 +4,8 @@ const app = express();
 require("dotenv").config();
 const mongoose = require("mongoose");
 const sessions = require("express-session");
+const MongoStore = require("connect-mongo");
+
 const homeRouter = require("./routes/home");
 const cartRouter = require("./routes/cart");
 const userRouter = require("./routes/user");
@@ -12,22 +14,26 @@ const userRouter = require("./routes/user");
 const DB_URL = process.env.APP_URL;
 const sessionSecret = process.env.SECRET;
 
-mongoose.connect(DB_URL, {
+let db = mongoose.connect(DB_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
+
 
 const oneDay = 1000 * 60 * 60 * 24;
 
 //session middleware
 app.use(sessions({
     secret: sessionSecret,
-    saveUninitialized:false,
+    saveUninitialized:false, // don't create session until something stored
     cookie: { 
         maxAge: oneDay,
         sameSite: "strict"
     },
-    resave: false
+    resave: false, //don't save session if unmodified
+    store: MongoStore.create({
+        mongoUrl: DB_URL
+    })
 }));
 
 app.use((req, res, next)=>{
