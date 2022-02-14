@@ -14,7 +14,7 @@ const userRouter = require("./routes/user");
 const DB_URL = process.env.APP_URL;
 const sessionSecret = process.env.SECRET;
 
-let db = mongoose.connect(DB_URL, {
+mongoose.connect(DB_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });

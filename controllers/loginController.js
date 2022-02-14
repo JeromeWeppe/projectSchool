@@ -1,17 +1,15 @@
-// const express = require("express");
-
 const mongoose = require("mongoose");
 const bcrypt = require ("bcrypt");
-const LoginModels = require("../models/loginModels");
+const userModels = require("../models/userDbModels");
 const emailvalidator = require("email-validator");
 
-const User = LoginModels;
+const User = userModels;
 const regex = new RegExp("^[a-zA-Z]+[0-9]*$");
 
 exports.getLoginPage = (req, res) =>{
     res.render("pages/login",{
         isLoggedIn: req.isLoggedIn,
-        loginError: ""        
+        loginError: ""
     });
 };
 
@@ -23,7 +21,7 @@ exports.getLogout = (req, res) =>{
 exports.postRegisterPage = (req, res) =>{    
     
     if (emailvalidator.validate(req.body.email)){
-        if (regex.test(req.body.name)){
+        if (regex.test(req.body.name) && !User.findOne({name : req.body.name})){
 
             let newUser = new User({
                 _id: new mongoose.Types.ObjectId().toHexString(),
