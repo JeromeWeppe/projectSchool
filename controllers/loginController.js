@@ -2,9 +2,12 @@ const mongoose = require("mongoose");
 const bcrypt = require ("bcrypt");
 const userModels = require("../models/userDbModels");
 const emailvalidator = require("email-validator");
+const DBController = require("../controllers/DBController");
 
 const User = userModels;
-const regex = new RegExp("^[a-zA-Z]+[0-9]*$");
+const wordRegex = new RegExp("^[a-zA-Z0-9_ ]*$");
+const numbRegex = new RegExp("^[0-9]+$");
+const pswRegex = new RegExp("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$");
 
 exports.getLoginPage = (req, res) =>{
     res.render("pages/login",{
@@ -15,24 +18,36 @@ exports.getLoginPage = (req, res) =>{
 
 exports.getLogout = (req, res) =>{
     req.session.destroy();
-    // console.log("session destroyed" + req.session);
     res.redirect("/");
 };
-exports.postRegisterPage = (req, res) =>{    
-    
-    if (emailvalidator.validate(req.body.email)){
-        if (regex.test(req.body.name) && !User.findOne({name : req.body.name})){
 
+exports.postRegisterPage = (req, res) =>{
+    // && !User.findOne({name : req.body.name})
+    if (emailvalidator.validate(req.body.email) ){
+        if (wordRegex.test(req.body.name) 
+        && numbRegex.test(req.body.numStreet) 
+        && wordRegex.test(req.body.street) 
+        && wordRegex.test(req.body.city) 
+        && numbRegex.test(req.body.postalCode) 
+        && pswRegex.test(req.body.psw) && !DBController.existUser
+        ){
             let newUser = new User({
                 _id: new mongoose.Types.ObjectId().toHexString(),
                 name: req.body.name,
                 email: req.body.email,
-                psw: bcrypt.hashSync(req.body.psw, bcrypt.genSaltSync(8), null)
+                psw: bcrypt.hashSync(req.body.psw, bcrypt.genSaltSync(8), null),
+                address:{
+                    numStreet: req.body.numStreet,
+                    street: req.body.street,
+                    city: req.body.city,
+                    postalCode: req.body.postalCode
+                }
             });
             newUser.save();
             let session = req.session;
             session.userid = req.body.name;
             console.log(req.session);
+
             res.status(200).render("pages/login",{
                 loginError: "Successfully registered.",
                 isLoggedIn: req.isLoggedIn
@@ -40,14 +55,14 @@ exports.postRegisterPage = (req, res) =>{
 
         } else {
             res.status(400).render("pages/login",{
-                loginError: "Invalid username.",
+                loginError: "Nom non valide ou déjà existant",
                 isLoggedIn: req.isLoggedIn
             });
         }
 
     } else {
         res.status(400).render("pages/login",{
-            loginError: "Invalid Email.",
+            loginError: "Email non valide ou déjà existant",
             isLoggedIn: req.isLoggedIn
         });
     }
@@ -55,21 +70,25 @@ exports.postRegisterPage = (req, res) =>{
 };
 
 exports.checkLogin = (req, res) =>{
-    
-    // console.log("dans le checklogin");
-    if (regex.test(req.body.name)){
+
+    if (wordRegex.test(req.body.name) && pswRegex.test(req.body.psw)){
+
         User.findOne({name : req.body.name},(err, user)=>{
+
             if (!err){
+
                 if (user != null){
+
                     if (bcrypt.compareSync(req.body.psw, user.psw)){
+
                         let session = req.session;
                         session.userid = req.body.name;
                         req.isLoggedIn = true;
-                        // console.log(req.session);
                         res.render("pages/index",{
                             message: "Successfully logged.",
                             isLoggedIn: req.isLoggedIn
                         });
+
                     } else {
                         res.status(400).render("pages/login",{
                             loginError: "Invalid credentials.",
@@ -90,10 +109,66 @@ exports.checkLogin = (req, res) =>{
             }
         });
     } else {
-        res.status(400).render("pages/user",{
+        res.status(400).render("pages/login",{
             loginError: "Invalid credentials.",
             isLoggedIn: req.isLoggedIn
         });
     }
 };
 
+exports.getProfil = (req,res) => {
+
+    User.findOne({name: req.session.userid}, function(err, docs) {
+
+        if (err) {
+            console.log(err);
+            throw err;
+        }
+
+        res.status(200).render("pages/profil",{
+            isLoggedIn: req.isLoggedIn,
+            profilData: docs,
+            message:""
+      });
+    });
+};
+
+exports.changePsw = (req,res) => {
+
+    User.findOne({name : req.session.userid},(err, user)=>{
+
+        if (bcrypt.compareSync(req.body.oldPsw, user.psw )){
+
+            if (req.body.newPsw === req.body.newPsw2){
+
+                user.psw = bcrypt.hashSync(req.body.newPsw, bcrypt.genSaltSync(8), null);
+                console.log(user);
+
+                User.updateOne({name: req.session.userid}, user, function(err, result){
+
+                    console.log(result);
+                    res.render("pages/profil",{
+                        message: "mot de passe changé avec succès",
+                        isLoggedIn: req.isLoggedIn,
+                        profilData: user
+                    });
+
+                });
+
+            } else {
+                res.render("pages/profil",{
+                    message: "erreur : les nouveaux mots de passes ne correspondent pas",
+                    isLoggedIn: req.isLoggedIn,
+                    profilData: user
+                });
+            }
+        } else {
+            res.render("pages/profil",{
+                message: "erreur : mauvais mot de passe",
+                isLoggedIn: req.isLoggedIn,
+                profilData: user
+            });
+        }
+    });
+    
+};

@@ -1,3 +1,5 @@
 .env
 node_modules
 .eslintrc
+controllers/DBController.js
+controllers/formController.js

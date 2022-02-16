@@ -102,6 +102,18 @@ div{
     background-color: #202124;
     margin:1rem 2rem 1rem 2rem;
     padding-bottom: 2rem;
+    
+}
+
+.registerForm{
+    display: flex;
+    flex-direction: column;
+    margin-left: 40%;
+    margin-right: 40%;
+}
+
+.registerForm>input{
+    margin-bottom: 1rem;
 }
 
 .divCartMessage{

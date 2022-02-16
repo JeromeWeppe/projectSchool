@@ -9,6 +9,10 @@ loginRouter.post("/register",loginController.postRegisterPage);
 
 loginRouter.post("/login",loginController.checkLogin);
 
+loginRouter.get("/profil", loginController.getProfil);
+
+loginRouter.post("/profil", loginController.changePsw);
+
 loginRouter.get("/logout", loginController.getLogout);
 
 module.exports = loginRouter;

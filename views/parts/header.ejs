@@ -2,8 +2,9 @@
     <a href="/">accueil</a>
     <a href="/cart/display">panier</a>    
     <% if(locals.isLoggedIn){ %>
+    <a href="/user/profil">profil</a>
     <a href="/user/logout">deconnexion</a>
     <% } else { %>
-    <a href="/user">connexion / inscription</a>
+    <a href="/user">connexion</a>
     <% } %>
 </nav>

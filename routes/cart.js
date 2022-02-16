@@ -14,7 +14,6 @@ cartRouter.get("/display", function (req, res){
             isLoggedIn: req.isLoggedIn,
             cart: docs
       });
-    
     });
 });
 

@@ -4,7 +4,8 @@ const userSchema = new mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
     name: String,
     email: String,
-    psw: String
+    psw: String,
+    address: Object
 });
 
 module.exports = mongoose.model("Users", userSchema);

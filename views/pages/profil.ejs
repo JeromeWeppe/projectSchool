@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <%- include('../parts/head'); %>
+</head>
+<body>
+    <header id="header">
+        <%- include('../parts/header'); %>
+    </header>
+
+    <main>
+        <div id="container">
+            <% if(locals.loginError) { %>
+                <p><%= locals.loginError %></p>
+            <% } %>
+            <div class="infoUser">
+                <p>nom d'utilisateur : <%= profilData.name %> </p>
+                <p>adresse mail : <%= profilData.email %> </p>
+                <p>numéro de rue : <%= profilData.address.numStreet %> </p>
+                <p>nom de rue : <%= profilData.address.street %> </p>
+                <p>ville : <%= profilData.address.city %> </p>
+                <p>code postal : <%= profilData.address.postalCode %> </p>
+            </div>
+            <div class="formDiv">
+                
+                <h2>changer le mot de passe</h2>
+                <p> <%= message %> </p>
+                <form action="/user/profil" method="post">
+                    <input type="password" name="oldPsw" placeholder="ancien mot de passe" />
+                    <input type="password" name="newPsw" placeholder="nouveau mot de passe" />
+                    <input type="password" name="newPsw2" placeholder="ré-entrez nouveau mot de passe" />
+                    <input type="submit" name="mdpChange" value="Valider"/>
+                </form>
+            </div>
+
+            
+        </div>
+    </main>
+
+    <footer id="footer">
+        <%- include('../parts/footer'); %>
+    </footer>
+</body>
+</html>
