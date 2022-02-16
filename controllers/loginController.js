@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const bcrypt = require ("bcrypt");
 const userModels = require("../models/userDbModels");
 const emailvalidator = require("email-validator");
-const DBController = require("../controllers/DBController");
 
 const User = userModels;
 const wordRegex = new RegExp("^[a-zA-Z0-9_ ]*$");
@@ -22,44 +21,61 @@ exports.getLogout = (req, res) =>{
 };
 
 exports.postRegisterPage = (req, res) =>{
-    // && !User.findOne({name : req.body.name})
+
     if (emailvalidator.validate(req.body.email) ){
-        if (wordRegex.test(req.body.name) 
-        && numbRegex.test(req.body.numStreet) 
-        && wordRegex.test(req.body.street) 
-        && wordRegex.test(req.body.city) 
-        && numbRegex.test(req.body.postalCode) 
-        && pswRegex.test(req.body.psw) && !DBController.existUser
-        ){
-            let newUser = new User({
-                _id: new mongoose.Types.ObjectId().toHexString(),
-                name: req.body.name,
-                email: req.body.email,
-                psw: bcrypt.hashSync(req.body.psw, bcrypt.genSaltSync(8), null),
-                address:{
-                    numStreet: req.body.numStreet,
-                    street: req.body.street,
-                    city: req.body.city,
-                    postalCode: req.body.postalCode
-                }
-            });
-            newUser.save();
-            let session = req.session;
-            session.userid = req.body.name;
-            console.log(req.session);
 
-            res.status(200).render("pages/login",{
-                loginError: "Successfully registered.",
-                isLoggedIn: req.isLoggedIn
-            });
+        User.exists({email: req.body.email}, (err,id)=>{
 
-        } else {
-            res.status(400).render("pages/login",{
-                loginError: "Nom non valide ou déjà existant",
-                isLoggedIn: req.isLoggedIn
-            });
-        }
+            if (err) {
+                console.log(err);
+                throw err;
+            }
 
+            if (id == null){
+                if (wordRegex.test(req.body.name) 
+                            && numbRegex.test(req.body.numStreet) 
+                            && wordRegex.test(req.body.street) 
+                            && wordRegex.test(req.body.city) 
+                            && numbRegex.test(req.body.postalCode) 
+                            && pswRegex.test(req.body.psw)
+                            ){
+                                let newUser = new User({
+                                    _id: new mongoose.Types.ObjectId().toHexString(),
+                                    name: req.body.name,
+                                    email: req.body.email,
+                                    psw: bcrypt.hashSync(req.body.psw, bcrypt.genSaltSync(8), null),
+                                    address:{
+                                        numStreet: req.body.numStreet,
+                                        street: req.body.street,
+                                        city: req.body.city,
+                                        postalCode: req.body.postalCode
+                                    }
+                                });
+                                newUser.save();
+                                let session = req.session;
+                                session.userid = req.body.name;
+                                console.log(req.session);
+
+                                res.status(200).render("pages/login",{
+                                    loginError: "Successfully registered.",
+                                    isLoggedIn: req.isLoggedIn
+                                });
+
+                            } else {
+                                res.status(400).render("pages/login",{
+                                    loginError: "champs incorrects",
+                                    isLoggedIn: req.isLoggedIn
+                                });
+                            }
+            } else {
+                res.status(400).render("pages/login",{
+                    loginError: "Nom non valide ou déjà existant",
+                    isLoggedIn: req.isLoggedIn
+                });
+            }
+            
+        });
+        console.log(req.session);
     } else {
         res.status(400).render("pages/login",{
             loginError: "Email non valide ou déjà existant",
@@ -103,7 +119,7 @@ exports.checkLogin = (req, res) =>{
                 }
             } else {
                 res.render("pages/error",{
-                    error: `${err.name} ${err.message}`,
+                    error: "une erreur s'est produite",
                     isLoggedIn: req.isLoggedIn
                 });
             }
@@ -137,6 +153,11 @@ exports.changePsw = (req,res) => {
 
     User.findOne({name : req.session.userid},(err, user)=>{
 
+        if (err) {
+            console.log(err);
+            throw err;
+        }
+
         if (bcrypt.compareSync(req.body.oldPsw, user.psw )){
 
             if (req.body.newPsw === req.body.newPsw2){
@@ -147,7 +168,7 @@ exports.changePsw = (req,res) => {
                 User.updateOne({name: req.session.userid}, user, function(err, result){
 
                     console.log(result);
-                    res.render("pages/profil",{
+                    res.status(200).render("pages/profil",{
                         message: "mot de passe changé avec succès",
                         isLoggedIn: req.isLoggedIn,
                         profilData: user

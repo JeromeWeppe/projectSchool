@@ -63,9 +63,10 @@ img {
 .clear {
     clear: both;
 }
-a{
+#container a{
     text-decoration:none;
-    color: #000000;
+    color: blueviolet;
+    font-size: 2rem;
 }
 
 li{
@@ -88,6 +89,7 @@ header nav{
 nav>a{
     color: #ffffff;
     font-size: 2rem;
+    text-decoration: none;
 }
 div{
     border-radius: 30px;
