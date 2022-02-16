@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const orderSchema = new mongoose.Schema({
     customerID: {
         type: { type: String, ref: "User" },
-        required: true
+        // required: "true"
     },
     orderContents: {
         type: Array

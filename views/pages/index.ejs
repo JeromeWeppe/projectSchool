@@ -13,27 +13,28 @@
             <% if(locals.message) { %>
                 <p><%= locals.message %></p>
             <% } %>
-            <h1>Welcome to Zalem</h1>
+            <h1>Bienvenue sur Zalem</h1>
             <div class="productDiv">
                 <h2>Implant occulaire</h2>
-                <img src="" alt="Image implant occulaire">
+                <img src="/img/cybereye.jpg" alt="Image implant occulaire" id="cybereye">
                 <p class="description">Grâce à notre implant oculaire de dernière technologie plus rien n'aura de secret pour vous, alors essayez le !</p>
-                <p class="prix">2000 e</p>
-                <input type="submit" class="prix" value="Ajouter au panier" formmethod="get" formaction="/cart/add/id=1">
+                <p class="prix">2000 €</p>
+                
+                <button><a href="/cart/add/1">Ajouter au panier</a></button>
             </div>
             <div class="productDiv">
-                <h2>Bras cybernétique</h2>
-                <img src="" alt="Image bras cyber">
-                <p class="description">Bras classique ou avec option d'armement. Permet de porter de lourdes charges</p>
-                <p class="prix">3800 e</p>
-                <input type="submit" class="prix" value="Ajouter au panier" formmethod="get" formaction="/cart/add/id=2">
+                <h2>Bras artificiel</h2>
+                <img src="/img/cyberarm.jpg" alt="Image bras artificiel" id="cyberarm">
+                <p class="description">Bras artificiel permettant de porter de lourdes charges</p>
+                <p class="prix">3800 €</p>
+                <button><a href="/cart/add/2">Ajouter au panier</a></button>
             </div>
             <div class="productDiv">
-                <h2>Jambe cybernétique</h2>
-                <img src="" alt="Image jambe cybernétique">
-                <p class="description">Jambe classique ou avec option. Permet une meilleure endurance</p>
-                <p>4 500 e</p>
-                <input type="submit" class="prix" value="Ajouter au panier" formmethod="get" formaction="/cart/add/id=3">
+                <h2>Jambe artificielle</h2>
+                <img src="/img/cyberleg.jpg" alt="Image jambe artificielle" id="cyberleg">
+                <p class="description">Jambe artificielle permettant une meilleure endurance</p>
+                <p>4 500 €</p>
+                <button><a href="/cart/add/3">Ajouter au panier</a></button>
             </div>
         </div>
     </main>

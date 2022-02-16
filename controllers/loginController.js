@@ -15,7 +15,7 @@ exports.getLoginPage = (req, res) =>{
 
 exports.getLogout = (req, res) =>{
     req.session.destroy();
-    console.log("session destroyed" + req.session);
+    // console.log("session destroyed" + req.session);
     res.redirect("/");
 };
 exports.postRegisterPage = (req, res) =>{    
@@ -56,7 +56,7 @@ exports.postRegisterPage = (req, res) =>{
 
 exports.checkLogin = (req, res) =>{
     
-    console.log("dans le checklogin");
+    // console.log("dans le checklogin");
     if (regex.test(req.body.name)){
         User.findOne({name : req.body.name},(err, user)=>{
             if (!err){
@@ -65,7 +65,7 @@ exports.checkLogin = (req, res) =>{
                         let session = req.session;
                         session.userid = req.body.name;
                         req.isLoggedIn = true;
-                        console.log(req.session);
+                        // console.log(req.session);
                         res.render("pages/index",{
                             message: "Successfully logged.",
                             isLoggedIn: req.isLoggedIn

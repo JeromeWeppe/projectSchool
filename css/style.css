@@ -10,34 +10,54 @@ body {
     text-align:center;
     color:#ffffff;
     background-color: #131417;
-    height: 100%;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+main{
+    display: flex;
+    flex-flow: column;
+    justify-content: center safe;
+    margin: auto;
+    line-height: 1.8;
+    flex: 1 1 auto;
 }
 
 #container{
     background-color: #2a2a2c;
-    margin: 0 auto;
+    margin: 0 ;
     display: flex;
     flex-direction: column;
-    max-width:480px;
+    width:480px;
+    padding-bottom: 2rem;
+    flex: 1 1 auto;
+    justify-content: center;
 }
 
 h1{
     color: blueviolet;
     font-size: 3rem;
+    background-color: #202124;
+    margin-left: 35%;
+    margin-right: 35%;
+    border-radius: 30px;
 }
+
 h2{
     color: blueviolet;
     font-size: 2.5rem;
+    background-color: #202124;
+    margin-left: 40%;
+    margin-right: 40%;
+    border-radius: 30px;
 }
 img {
     max-width: 100%;
     width: auto; /* pour ie */
     height: auto;
-}
-main{
-  margin: auto;  
-  line-height: 1.8;
-  
+    border-radius: 30px;
 }
 
 .clear {
@@ -51,7 +71,12 @@ a{
 li{
     list-style:none;
 }
+
 header nav{
+    /* position:fixed;
+    width: 100%; */
+    background-color: #551d81;
+    
     display: flex;
     justify-content: space-evenly;
     /* flex-direction: column; */
@@ -60,6 +85,13 @@ header nav{
     text-align: center;
 }
 
+nav>a{
+    color: #ffffff;
+    font-size: 2rem;
+}
+div{
+    border-radius: 30px;
+}
 .productDiv{
     background-color: #202124;
     margin:1rem 2rem 1rem 2rem;
@@ -71,24 +103,53 @@ header nav{
     margin:1rem 2rem 1rem 2rem;
     padding-bottom: 2rem;
 }
+
+.divCartMessage{
+    background-color: #202124;
+    margin:1rem 2rem 1rem 2rem;
+    padding-bottom: 2rem;
+}
+
+.divCartItems{
+    background-color: #202124;
+    margin:1rem 2rem 1rem 2rem;
+    padding-bottom: 2rem;
+}
+#cybereye{
+    height: 300px;
+    width: 400px;
+}
+
+#cyberarm{
+    height: 400px;
+    width: 250px;
+}
+
+#cyberleg{
+    height: 350px;
+    width: 600px;
+    padding: 0rem 1rem 0rem 1rem;
+}
+
 footer{
-    position: absolute bottom;
-    width: 100%;
+    background-color: #551d81;
     color: #bebebf;
-    /* justify-content: flex-end; */
-    height: 10%;
+    padding: 1rem 0rem 1rem 0rem;
+    justify-content: flex-end;
+    /* margin-top: auto; */
+    
 }
 
 /*TABLET 768PX*/
 @media screen and (min-width: 768px){
     #container{
-        max-width:768px;
+        width:768px;
     }
 }
 
 /*DESKTOP 1025PX*/
 @media screen and (min-width: 1200px){
     #container{
-        max-width:1200px;
+        width:1200px;
     }
 }

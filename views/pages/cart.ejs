@@ -10,8 +10,33 @@
 
     <main>
         <div id="container">
-            <p>Here is your cart</p>
+            <h2>Panier</h2>
+            
+                <% if((!locals.isLoggedIn) || (cart.cartContents[0].count === 0 && cart.cartContents[1].count === 0 && cart.cartContents[2].count === 0)) { %>
+                    <div class="divCartMessage">
+                        <% if(!locals.isLoggedIn) { %>
+                            <p class="notLogged">Connectez-vous pour créer un panier</p>
+                        <% }else { %>
+                            <p class="noArticle">Votre panier est vide</p>
+                        <% } %>
+                    </div>
+                <% } %>
+            <% if((locals.isLoggedIn) && (cart.cartContents[0].count > 0 || cart.cartContents[1].count > 0 || cart.cartContents[2].count > 0)) { %>
+            <div class="divCartItems">
+                <% for(i = 0; i <= 2; i++ ){
+                    if((locals.isLoggedIn) && cart.cartContents[i].count > 0) { %>
+                    
+                    <p> <%= cart.cartContents[i].name %> : <%= cart.cartContents[i].price %> € X <%= cart.cartContents[i].count %> </p>
+                    <button class="removeArticle"><a href="/cart/remove/<%= i + 1 %>">Retirer</a></button>
+                    <% } %>
+                <% } %>
+                <button><a href="/cart/checkout">Payer</a></button>
+            </div>
+            <% } %>
+
+            
         </div>
+
     </main>
 
     <footer id="footer">
