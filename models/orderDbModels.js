@@ -18,4 +18,5 @@ const orderSchema = new mongoose.Schema({
 
 
 module.exports = mongoose.model("Orders", orderSchema);
-//feature non développée par manque de temps
+//feature non développée par manque de temps (covid, travail en entreprise prenant, pas de poste de dev en entreprise donc manque d'experience
+// et peu de temps en général pour faire le projet)
