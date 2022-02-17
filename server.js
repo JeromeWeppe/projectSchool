@@ -1,4 +1,3 @@
-//see jwt token
 const express = require("express");
 const app = express();
 require("dotenv").config();
@@ -9,7 +8,6 @@ const MongoStore = require("connect-mongo");
 const homeRouter = require("./routes/home");
 const cartRouter = require("./routes/cart");
 const userRouter = require("./routes/user");
-// const fetch = require("node-fetch");
 
 const DB_URL = process.env.APP_URL;
 const sessionSecret = process.env.SECRET;
@@ -61,7 +59,7 @@ app.get("/*", (req,res)=>{
         isLoggedIn: req.isLoggedIn
     });
 });
-// app.use("/api/put/cartItem")
+
 app.listen(port, hostname, () => {
     console.log(`Server running at http://${hostname}:${port}/`);
 });
