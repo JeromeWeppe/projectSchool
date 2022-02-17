@@ -12,7 +12,7 @@
         <div id="container">
             <h2>Panier</h2>
             
-                <% if((!locals.isLoggedIn) || (cart.cartContents[0].count === 0 && cart.cartContents[1].count === 0 && cart.cartContents[2].count === 0)) { %>
+                <% if((!locals.isLoggedIn) || (cart == null) || (cart.cartContents[0].count === 0 && cart.cartContents[1].count === 0 && cart.cartContents[2].count === 0)) { %>
                     <div class="divCartMessage">
                         <% if(!locals.isLoggedIn) { %>
                             <p class="notLogged">Connectez-vous pour créer un panier</p>
@@ -21,16 +21,20 @@
                         <% } %>
                     </div>
                 <% } %>
-            <% if((locals.isLoggedIn) && (cart.cartContents[0].count > 0 || cart.cartContents[1].count > 0 || cart.cartContents[2].count > 0)) { %>
+            <% if((locals.isLoggedIn) && (cart != null) && (cart.cartContents[0].count > 0 || cart.cartContents[1].count > 0 || cart.cartContents[2].count > 0)) { %>
             <div class="divCartItems">
+                <% let total = 0; %>
                 <% for(i = 0; i <= 2; i++ ){
                     if((locals.isLoggedIn) && cart.cartContents[i].count > 0) { %>
-                    
-                    <p> <%= cart.cartContents[i].name %> : <%= cart.cartContents[i].price %> € X <%= cart.cartContents[i].count %> </p>
-                    <button class="removeArticle"><a href="/cart/remove/<%= i + 1 %>">Retirer</a></button>
+                    <% total += parseInt(cart.cartContents[i].price) * cart.cartContents[i].count %>
+                    <div class="removeArticle">
+                        <p> <%= cart.cartContents[i].name %> : <%= cart.cartContents[i].price %> € X <%= cart.cartContents[i].count %> </p>
+                        <a href="/cart/remove/<%= i + 1 %>" >Retirer</a>
+                    </div>
                     <% } %>
                 <% } %>
-                <button><a href="/cart/checkout">Payer</a></button>
+                <p>total à payer : <%= total %> €</p>
+                <a href="/cart/checkout">Payer</a>
             </div>
             <% } %>
 

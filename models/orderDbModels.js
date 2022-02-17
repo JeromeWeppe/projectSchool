@@ -3,7 +3,6 @@ const mongoose = require("mongoose");
 const orderSchema = new mongoose.Schema({
     customerID: {
         type: { type: String, ref: "User" },
-        // required: "true"
     },
     orderContents: {
         type: Array
@@ -16,10 +15,7 @@ const orderSchema = new mongoose.Schema({
         type: Number
     }
 });
-// get /cart/list = avoir tous les articles du panier
-// put 
-// table cartItem{id
-// quantité
-// compte}
+
 
 module.exports = mongoose.model("Orders", orderSchema);
+//feature non développée par manque de temps

@@ -36,12 +36,18 @@ main{
     justify-content: center;
 }
 
+#container a{
+    text-decoration:none;
+    color: blueviolet;
+    font-size: 2rem;
+}
+
 h1{
     color: blueviolet;
     font-size: 3rem;
     background-color: #202124;
-    margin-left: 35%;
-    margin-right: 35%;
+    margin-left: 30%;
+    margin-right: 30%;
     border-radius: 30px;
 }
 
@@ -49,8 +55,8 @@ h2{
     color: blueviolet;
     font-size: 2.5rem;
     background-color: #202124;
-    margin-left: 40%;
-    margin-right: 40%;
+    margin-left: 10%;
+    margin-right: 10%;
     border-radius: 30px;
 }
 img {
@@ -63,11 +69,7 @@ img {
 .clear {
     clear: both;
 }
-#container a{
-    text-decoration:none;
-    color: blueviolet;
-    font-size: 2rem;
-}
+
 
 li{
     list-style:none;
@@ -110,8 +112,8 @@ div{
 .registerForm{
     display: flex;
     flex-direction: column;
-    margin-left: 40%;
-    margin-right: 40%;
+    margin-left: 30%;
+    margin-right: 30%;
 }
 
 .registerForm>input{
@@ -159,11 +161,48 @@ footer{
     #container{
         width:768px;
     }
+
+    .registerForm{
+        margin-left: 40%;
+        margin-right: 40%;
+    }
+
+    h1{
+        margin-left: 25%;
+        margin-right: 25%;
+    }
 }
 
 /*DESKTOP 1025PX*/
 @media screen and (min-width: 1200px){
     #container{
         width:1200px;
+    }
+    
+    .registerForm{
+        margin-left: 40%;
+        margin-right: 40%;
+    }
+
+    .removeArticle{
+        flex-direction: row;
+        display: flex;
+        justify-content: center;
+    }
+    .removeArticle>p{
+        width: 25rem;
+    }
+    .removeArticle>a{
+        padding-top: 1.25rem;
+    }
+
+    h1{
+        margin-left: 30%;
+        margin-right: 30%;
+    }
+
+    h2{
+        margin-left: 40%;
+        margin-right: 40%;
     }
 }

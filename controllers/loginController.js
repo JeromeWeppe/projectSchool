@@ -100,7 +100,7 @@ exports.checkLogin = (req, res) =>{
                         let session = req.session;
                         session.userid = req.body.name;
                         req.isLoggedIn = true;
-                        res.render("pages/index",{
+                        res.status(200).render("pages/index",{
                             message: "Successfully logged.",
                             isLoggedIn: req.isLoggedIn
                         });
@@ -118,7 +118,7 @@ exports.checkLogin = (req, res) =>{
                     });
                 }
             } else {
-                res.render("pages/error",{
+                res.status(400).render("pages/error",{
                     error: "une erreur s'est produite",
                     isLoggedIn: req.isLoggedIn
                 });
@@ -177,14 +177,14 @@ exports.changePsw = (req,res) => {
                 });
 
             } else {
-                res.render("pages/profil",{
+                res.status(400).render("pages/profil",{
                     message: "erreur : les nouveaux mots de passes ne correspondent pas",
                     isLoggedIn: req.isLoggedIn,
                     profilData: user
                 });
             }
         } else {
-            res.render("pages/profil",{
+            res.status(400).render("pages/profil",{
                 message: "erreur : mauvais mot de passe",
                 isLoggedIn: req.isLoggedIn,
                 profilData: user
